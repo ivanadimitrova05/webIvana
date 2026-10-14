@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>Контролен панел за паметен дом</title>
+    </head>
+
+    <body>
+        <h1 id="top">Контролен панел за паметен дом</h1>
+        <h2>Навигација</h2>
+        <ul>
+            <li>
+                <a href="#spalna">Спална</a><br>
+                <ul>
+                    <li>
+                        <a href="#temperatura_spalna">Температура (°C)</a>
+                    </li>
+                    <li>
+                        <a href="#vlaznost">Влажност (%)</a>
+                    </li>
+                    <li>
+                        <a href="#prozorec">Отворен прозорец</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#dnevna">Дневна</a><br>
+                <ul>
+                    <li>
+                        <a href="#temperatura_dnevna">Температура (°C)</a>
+                    </li>
+                    <li>
+                        <a href="#boja">Боја на осветлување</a>
+                    </li>
+                    <li>
+                        <a href="#vrata">Влезна врата</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#kujna">Кујна</a><br>
+                <ul>
+                    <li>
+                        <a href="#parea">Ниво на пареа</a>
+                    </li>
+                    <li>
+                        <a href="#svetlo">Светло (време на последно запалување)</a>
+                    </li>
+                    <li>
+                        <a href="#frizider">Фрижидер (датум и време на последно отварање)</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#gradina">Градина</a><br>
+                <ul>
+                    <li>
+                        <a href="#treva">Трева (датум на последено косење)</a>
+                    </li>
+                    <li>
+                        <a href="#navodnuvanje">Наводнување (седмица на последно наводнување)</a>
+                    </li>
+                    <li>
+                        <a href="#zvuk">Звук (опис)</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#pravila">Правила за вредносни зони</a>
+            </li>
+            <li>
+                <a href="#notifikacii">Нотификации</a>
+            </li>
+        </ul>
+        <section id="spalna">
+            <h2>Спална</h2>
+            <table border = "1">
+                <caption><strong>Сензори во спална</strong></caption>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Сензор</th>
+                        <th rowspan="2">Вредност</th>
+                        <th colspan="2">Статусни параметри</th>
+                        <th rowspan="2">Оцена според правила</th>
+                    </tr>
+                    <tr>
+                        <th>Состојба (вклучен/исклучен)</th>
+                        <th>Батерија</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr id="temperatura_spalna">
+                        <td>Температура (°C)</td>
+                        <td>
+                            <input type="number" name="temp-spalna" min="0" max="40" step="0.5" value="25">
+                        </td>
+                        <td>Вклучен</td>
+                        <td>87%</td>
+                        <td><strong>Надвор од зона</strong></td>
+                    </tr>
+
+                    <tr id="vlaznost">
+                        <td>Влажност (%)</td>
+                        <td>
+                            <input type="range" name="vlaz-spalna" min="0" max="100" value="50">
+                        </td>
+                        <td>Вклучен</td>
+                        <td>60%</td>
+                        <td>Во ред</td>
+                    </tr>
+
+                    <tr id="prozorec">
+                        <td>Отворен прозорец</td>
+                        <td>
+                            <input type="checkbox" name="proz-spalna" checked>
+                        </td>
+                        <td>Вклучен</td>
+                        <td>13%</td>
+                        <td><strong>Надвор од зона</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                <a href="#top">Назад на почеток</a>
+            </p>
+        </section>
+
+        <section id="dnevna">
+            <h2>Дневна</h2>
+            <table border = "1">
+                <caption><strong>Сензори во дневна</strong></caption>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Сензор</th>
+                        <th rowspan="2">Вредност</th>
+                        <th colspan="2">Статусни параметри</th>
+                        <th rowspan="2">Оцена според правила</th>
+                    </tr>
+                    <tr>
+                        <th>Состојба (вклучен/исклучен)</th>
+                        <th>Батерија</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr id="temperatura_dnevna">
+                        <td>Температура (°C)</td>
+                        <td>
+                            <input type="number" name="temp-dnevna" min="0" max="40" step="0.5" value="21">
+                        </td>
+                        <td>Вклучен</td>
+                        <td>67%</td>
+                        <td>Во ред</td>
+                    </tr>
+
+                    <tr id="boja">
+                        <td>Боја на осветлување</td>
+                        <td>
+                            <input type="color" name="boja-dnevna" value="#FFFF00">
+                        </td>
+                        <td>Вклучен</td>
+                        <td>72%</td>
+                        <td>Во ред</td>
+                    </tr>
+
+                    <tr id="vrata">
+                        <td>Влезна врата</td>
+                        <td>
+                            <label>
+                                <input type="radio" name="vrata-dnevna" value="zaklucena" checked>Заклучена
+                            </label>
+                            <label>
+                                <input type="radio" name="vrata-dnevna" value="otklucena">Отклучена
+                            </label>
+                        </td>
+                        <td>Вклучен</td>
+                        <td>53%</td>
+                        <td>Во ред</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                <a href="#top">Назад на почеток</a>
+            </p>
+        </section>
+
+        <section id="kujna">
+            <h2>Кујна</h2>
+            <table border = "1">
+                <caption><strong>Сензори во кујна</strong></caption>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Сензор</th>
+                        <th rowspan="2">Вредност</th>
+                        <th colspan="2">Статусни параметри</th>
+                        <th rowspan="2">Оцена според правила</th>
+                    </tr>
+                    <tr>
+                        <th>Состојба (вклучен/исклучен)</th>
+                        <th>Батерија</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr id="parea">
+                        <td>Ниво на пареа</td>
+                        <td>
+                            <select name="parea-kujna">
+                                <option>Ниско</option>
+                                <option>Средно</option>
+                                <option selected>Високо</option>
+                            </select>
+                        </td>
+                        <td>Вклучен</td>
+                        <td>41%</td>
+                        <td><strong>Надвор од зона</strong></td>
+                    </tr>
+
+                    <tr id="svetlo">
+                        <td>Светло (време на последно запалување)</td>
+                        <td>
+                            <input type="time" name="svetlo-kujna" value="10:32">
+                        </td>
+                        <td>Вклучен</td>
+                        <td>99%</td>
+                        <td>Во ред</td>
+                    </tr>
+
+                    <tr id="frizider">
+                        <td>Фрижидер (датум и време на последно отварање)</td>
+                        <td>
+                            <input type="datetime-local" name="friz-kujna" value="2026-10-10T14:50">
+                        </td>
+                        <td>Вклучен</td>
+                        <td>80%</td>
+                        <td>Во ред</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                <a href="#top">Назад на почеток</a>
+            </p>
+        </section>
+
+        <section id="gradina">
+            <h2>Градина</h2>
+            <table border = "1">
+                <caption><strong>Сензори во градина</strong></caption>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Сензор</th>
+                        <th rowspan="2">Вредност</th>
+                        <th colspan="2">Статусни параметри</th>
+                        <th rowspan="2">Оцена според правила</th>
+                    </tr>
+                    <tr>
+                        <th>Состојба (вклучен/исклучен)</th>
+                        <th>Батерија</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr id="treva">
+                        <td>Трева (датум на последено косење)</td>
+                        <td>
+                            <input type="date" name="treva-gradina" value="2026-10-09">
+                        </td>
+                        <td>Вклучен</td>
+                        <td>59%</td>
+                        <td>Во ред</td>
+                    </tr>
+
+                    <tr id="navodnuvanje">
+                        <td>Наводнување (седмица на последно наводнување)</td>
+                        <td>
+                            <input type="week" name="navod-gradina" value="2026-W40">
+                        </td>
+                        <td>
+                            <del>Вклучен</del>
+                            <strong>Исклучен</strong>
+                        </td>
+                        <td>0%</td>
+                        <td><strong>Надвор од зона</strong></td>
+                    </tr>
+
+                    <tr id="zvuk">
+                        <td>Звук (опис)</td>
+                        <td>
+                            <textarea name="zvuk-gradina" rows="3" cols="25">Нема настани.</textarea>
+                        </td>
+                        <td>Вклучен</td>
+                        <td>19%</td>
+                        <td><strong>Надвор од зона</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                <a href="#top">Назад на почеток</a>
+            </p>
+        </section>
+
+        <section id="pravila">
+            <h2>Правила за вредносни зони</h2>
+            <table border="1">
+                <caption><strong>Дозволени вредности по соба</strong></caption>
+                <thead>
+                    <tr>
+                        <th>Соба</th>
+                        <th>Сензор</th>
+                        <th>Параметар</th>
+                        <th>Правило (за да биде во ред)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Спална</td>
+                        <td>Температура</td>
+                        <td>Вредност</td>
+                        <td>18 &lt temp &lt 24 (°C)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Спална</td>
+                        <td>Отворен прозорец</td>
+                        <td>Вредност</td>
+                        <td>Не</td>
+                    </tr>
+
+                    <tr>
+                        <td>Дневна</td>
+                        <td>Температура</td>
+                        <td>Вредност</td>
+                        <td>20 &lt temp &lt 24 (°C)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Кујна</td>
+                        <td>Ниво на пареа</td>
+                        <td>Вредност</td>
+                        <td>Ниско или средно</td>
+                    </tr>
+
+                    <tr>
+                        <td>Градина</td>
+                        <td>Звук</td>
+                        <td>Статусен параметар - состојба</td>
+                        <td>Вклучен</td>
+                    </tr>
+
+                    <tr>
+                        <td>Сите</td>
+                        <td>Сите</td>
+                        <td>Статусен параметар - батерија</td>
+                        <td>battery &gt 20%</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                <a href="#top">Назад на почеток</a>
+            </p>
+        </section>
+
+        <section id="notifikacii">
+            <h2>Нотификации</h2>
+            <article>
+                <header>
+                    <h3>Спална</h3>
+                </header>
+                <details>
+                    <summary>Спална: 2 предупредувања</summary>
+                    <ol>
+                        <li>Температурата е 25°C, што е надвор од границите 18 &lt temp &lt 24.</li>
+                        <li>Прозорецот е отворен и батеријата на сензорот е 13% (под 20%).</li>
+                    </ol>
+                </details>
+            </article>
+
+            <article>
+                <header>
+                    <h3>Дневна</h3>
+                </header>
+                <details>
+                    <summary>Дневна: 0 предупредувања</summary>
+                    <ol>
+                        <li>Сите параметри се во дозволените зони.</li>
+                    </ol>
+                </details>
+            </article>
+
+            <article>
+                <header>
+                    <h3>Кујна</h3>
+                </header>
+                <details>
+                    <summary>Кујна: 1 предупредување</summary>
+                    <ol>
+                        <li>Нивото на пареа е високо.</li>
+                    </ol>
+                </details>
+            </article>
+
+            <article>
+                <header>
+                    <h3>Градина</h3>
+                </header>
+                <details>
+                    <summary>Градина: 2 предупредувања</summary>
+                    <ol>
+                        <li>Сензорот за наводнување е исклучен и батеријата е 0% (под 20%).</li>
+                        <li>Батеријата на сензорот за звук е 19% (под 20%).</li>
+                    </ol>
+                </details>
+            </article>
+
+            <p>
+                <a href="#top">Назад на почеток</a>
+            </p>
+        </section>
+    </body>
+</html>
