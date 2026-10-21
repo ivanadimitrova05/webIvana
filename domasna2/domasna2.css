@@ -1,0 +1,169 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(pozadina1.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: cover;
+}
+h1{
+    color:lightpink;
+    -webkit-text-stroke: 2px black;
+    font-size: 400%;
+    text-align: center;
+    text-shadow: 4px 4px 6px rgb(147, 147, 147);
+    border: 3px solid black;
+    background-color: rgb(249, 213, 218);
+    padding: 5px 20px;
+    border-radius: 15px;
+    position: relative;
+    -webkit-animation: movingHeading linear 5s 1s 2 alternate;
+    -moz-animation: movingHeading linear 5s 1s 2 alternate;
+    animation: movingHeading linear 5s 1s 2 alternate;
+}
+@-webkit-keyframes movingHeading{
+    0% {opacity: 0; left: 50px; top: 0px;}
+    25% {opacity: 1; left: 0px; top: 50px;}
+    50% {opacity: 0; left: 50px; top: 100px;}
+    75% {opacity: 1; left: 100px; top: 50px;}
+    100% {opacity: 0; left: 50px; top: 0px;}
+}
+@-moz-keyframes movingHeading{
+    0% {opacity: 0; left: 50px; top: 0px;}
+    25% {opacity: 1; left: 0px; top: 50px;}
+    50% {opacity: 0; left: 50px; top: 100px;}
+    75% {opacity: 1; left: 100px; top: 50px;}
+    100% {opacity: 0; left: 50px; top: 0px;}
+}
+@keyframes movingHeading{
+    0% {opacity: 0; left: 50px; top: 0px;}
+    25% {opacity: 1; left: 0px; top: 50px;}
+    50% {opacity: 0; left: 50px; top: 100px;}
+    75% {opacity: 1; left: 100px; top: 50px;}
+    100% {opacity: 0; left: 50px; top: 0px;}
+}
+h2{
+    text-align: center;
+    text-shadow: 4px 4px 6px rgb(147, 147, 147);
+    font-size: 200%;
+    position: relative;
+    border-width: 6px;
+    border-style: groove;
+    width: 86%;
+    left: 7%;
+}
+.lightblue{
+    border-color: lightblue;
+    background-color: rgb(206, 237, 248);
+}
+.lightgreen{
+    border-color: lightgreen;
+    background-color: rgb(183, 242, 183);
+}
+.lightyellow{
+    border-color: rgb(250, 250, 159);
+    background-color: lightyellow;
+}
+.violet{
+    border-color: violet;
+    background-color: rgb(249, 191, 249);
+}
+p{
+    text-align: right;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+a.poc{
+    text-decoration: underline;
+}
+a:hover{
+    text-decoration: underline;
+    font-weight: bolder;
+}
+ul {
+    list-style-type: "→ ";
+}
+nav{
+    font-weight: bold;
+    font-size: 150%;
+    color: black;
+    border: 2px double black;
+    text-align: center;
+    width: 20em;
+    background-color: lightblue;
+}
+nav ul{
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+nav:hover ul{
+    display: block;
+}
+nav ul li{
+    border-top: 2px solid black;
+    background-color: white;
+    width: 20em;
+    color: black;
+}
+nav ul li:hover{
+    background-color: rgb(206, 237, 248)
+}
+section{
+    border: 3px solid white;
+}
+.centar{
+    text-align: center;
+}
+table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    box-shadow: 25px 25px 50px rgb(156, 154, 154);
+}
+.sob{
+    background-color: rgb(225, 252, 225);
+    border-color: rgb(53, 151, 53);
+}
+.prav{
+    border-color: rgb(191, 191, 72);
+    background: -webkit-gradient(
+        linear, left top, right bottom,
+        color-stop(15%, white), color-stop(50%, lightyellow), color-stop(75%, yellow)
+    );
+    background: -moz-linear-gradient(
+        top left, white 15%, lightyellow 50%, yellow 75%
+    );
+    background: linear-gradient(
+        45deg, white 15%, lightyellow 50%, yellow 75%
+    );
+}
+table caption.sobi{
+    font-size: 150%;
+    font-style: italic;
+    border-width: 5px;
+    border-style: dashed;
+    border-color: rgb(53, 151, 53);
+    background-color: rgb(183, 242, 183);
+}
+table caption.pravi{
+    font-size: 150%;
+    font-style: italic;
+    border-width: 5px;
+    border-style: dashed;
+    border-color: rgb(191, 191, 72);
+    background-color: lightyellow;
+}
+article{
+    display: inline-block;          
+    vertical-align: top;
+    border: 3px solid rgb(244, 86, 244);
+    padding: 5px 20px;
+    background: rgb(249, 191, 249);
+    width: 20%;
+    border-radius: 50px;
+    text-align: left;
+}
