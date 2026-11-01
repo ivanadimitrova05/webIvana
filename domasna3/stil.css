@@ -1,0 +1,222 @@
+body{
+    margin: 0;
+    padding: 0 20px 20px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    background-color: hsl(220, 15%, 12%);
+    color: hsl(0, 0%, 92%);
+}
+header{
+    margin: 0 -20px;
+    padding: 25px 20px;
+    text-align: center;
+    background: linear-gradient(to right, hsl(0, 85%, 28%), hsl(0, 80%, 45%), hsl(0, 85%, 28%));
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+header h1{
+    margin: 0;
+    font-size: 40px;
+    letter-spacing: 3px;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+}
+header p{
+    margin: 8px 0 0 0;
+    font-style: italic;
+}
+nav{
+    margin: 0 -20px 20px -20px;
+    padding: 10px;
+    text-align: center;
+    background-color: hsl(220, 15%, 6%);
+}
+nav a{
+    display: inline-block;
+    margin: 0 8px;
+    padding: 6px 16px;
+    color: white;
+    text-decoration: none;
+    border-radius: 15px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+nav a:hover{
+    background-color: hsl(0, 80%, 45%);
+    transform: scale(1.1);
+}
+section{
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    background-color: hsl(220, 15%, 18%);
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+h3{
+    margin: 25px 0 5px 0;
+    color: hsl(45, 100%, 65%);
+}
+section h2{
+    margin-top: 0;
+    padding-bottom: 6px;
+    border-bottom: 3px solid hsl(0, 80%, 45%);
+    text-shadow: 1px 1px 3px black;
+}
+#vozaci{
+    float: left;
+    width: 58%;
+}
+#gumi{
+    float: right;
+    width: 30%;
+}
+#trka{
+    clear: both;
+}
+.note{
+    font-size: 13px;
+    color: hsl(0, 0%, 70%);
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+caption{
+    padding: 6px;
+    padding-left: 0;
+    font-weight: bold;
+    text-align: left;
+    color: hsl(45, 100%, 65%);
+}
+th{
+    padding: 8px 6px;
+    text-align: left;
+    background-color: hsl(220, 15%, 8%);
+    border-bottom: 2px solid hsl(0, 80%, 45%);
+}
+td{
+    padding: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+tbody tr:nth-child(even){
+    background-color: rgba(255, 255, 255, 0.04);
+}
+tbody tr:hover{
+    background-color: rgba(255, 255, 255, 0.12);
+}
+td.pos{
+    font-weight: bold;
+    font-size: 17px;
+    text-align: center;
+}
+td.name{
+    font-weight: bold;
+}
+td.up{
+    font-weight: bold;
+    color: hsl(130, 70%, 55%);
+}
+td.down{
+    font-weight: bold;
+    color: hsl(0, 90%, 65%);
+}
+td.same{
+    color: hsl(0, 0%, 55%);
+}
+tr.winner{
+    font-weight: bold;
+    background: linear-gradient(to right, rgba(255, 215, 0, 0.45), rgba(255, 215, 0, 0.1));
+}
+.badge{
+    display: inline-block;
+    margin: 1px 3px 1px 0;
+    padding: 2px 9px;
+    font-size: 13px;
+    border-radius: 10px;
+}
+.badge.soft{
+    background-color: hsl(0, 80%, 45%);
+    color: white;
+}
+.badge.hard{
+    background-color: hsl(0, 0%, 90%);
+    color: hsl(0, 0%, 10%);
+}
+.badge.pit{
+    background-color: hsl(210, 80%, 45%);
+    color: white;
+}
+.badge.incident{
+    background-color: hsl(25, 95%, 50%);
+    color: white;
+}
+.badge.sc{
+    background-color: hsl(50, 100%, 50%);
+    color: black;
+}
+.banner{
+    display: block;
+    margin: 10px 0;
+    padding: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+}
+.banner.sc{
+    color: black;
+    background-color: hsl(50, 100%, 50%);
+    animation: blink 1s infinite;
+}
+.banner.winnerBanner{
+    color: black;
+    background: linear-gradient(to right, hsl(45, 100%, 45%), hsl(50, 100%, 70%), hsl(45, 100%, 45%));
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+} 
+@keyframes blink{
+    0%   { opacity: 1; }
+    50%  { opacity: 0.45; }
+    100% { opacity: 1; }
+}
+p.log{
+    margin: 4px 0;
+    padding: 3px 8px;
+    border-left: 4px solid hsl(0, 0%, 50%);
+} 
+p.log.pit{
+    border-left-color: hsl(210, 80%, 55%);
+} 
+p.log.incident{
+    border-left-color: hsl(25, 95%, 55%);
+}
+p.log.sc{
+    border-left-color: hsl(50, 100%, 50%);
+    background-color: rgba(255, 220, 0, 0.12);
+} 
+p.log.win{
+    border-left-color: gold;
+    font-weight: bold;
+}
+a.btn{
+    display: inline-block;
+    padding: 9px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    background: linear-gradient(to bottom, hsl(0, 80%, 50%), hsl(0, 80%, 35%));
+    border-radius: 8px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+a.btn:hover{
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6);
+}
+@media screen and (max-width: 900px){
+    #vozaci, #gumi{
+        float: none;
+        width: auto;
+    }
+    section{
+        overflow-x: auto;
+    }
+}
