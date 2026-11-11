@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Travel Planner App</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body class="bg-dark">
+        <header id="top" class="jumbotron">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                <h1>Travel Planner App</h1>
+                <p>Plan your next trip</p>
+            </div>
+            <div class="col-12 col-md-6 text-md-right">
+                <nav>
+                    <a href="#home" class="btn btn-info btn-lg">Home</a>
+                    <a href="#gallery" class="btn btn-info btn-lg">Gallery</a>
+                    <a href="#blog" class="btn btn-info btn-lg">Blog</a>
+                    <a href="#survey" class="btn btn-info btn-lg">Survey</a>
+                </nav>
+            </div>
+            </div>
+        </header>
+        <section id="login" class="container my-4 ">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-5">
+                    <div id="loginMessage"></div>
+                    <div id="loginCard" class="card login-card">
+                        <div class="login-header text-center text-white">
+                            <div class="login-icon">🔐</div>
+                            <h4 class="mb-0">Welcome back</h4>
+                            <small>Log in to manage destinations</small>
+                        </div>
+                        <div class="card-body">
+                            <form onsubmit="login(); return false;">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" class="form-control" placeholder="Enter username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" class="form-control" placeholder="Enter password">
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block btn-lg">Login</button>
+                            </form>
+                            <p class="text-muted text-center mt-3 mb-0"><small>Demo account: ivana / travel2026</small></p>
+                        </div>
+                    </div>
+                    <div id="loggedIn" class="card login-card d-none">
+                        <div class="card-body text-center">
+                            <div id="avatar" class="avatar"></div>
+                            <h5 id="welcomeText" class="mt-3 text-dark"></h5>
+                            <p class="text-muted">You can now add and delete destinations.</p>
+                            <button type="button" class="btn btn-outline-secondary" onclick="logout()">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container mt-3">
+        <div class="row p-3 rounded mb-3">
+            <div class="col-12 col-md-4 mb-2">
+                <input type="number" id="budget" class="form-control" placeholder="Max budget per person ($)">
+            </div>
+            <div class="col-12 col-md-4 mb-2">
+                <select id="filterCategory" class="form-control">
+                    <option value="all">All categories</option>
+                    <option>City break</option>
+                    <option>Mountain</option>
+                    <option>Beach</option>
+                    <option>Culture</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-4 mb-2">
+                <button type="button" class="btn btn-primary" onclick="draw()">Filter</button>
+                <button type="button" class="btn btn-secondary" onclick="resetFilter()">Reset</button>
+            </div>
+        </div>
+        <div id="noResults"></div>
+        </div>
+        <section id="home" class="container my-4">
+            
+            <div class="row" id="cities"></div>
+            <div id="addNotice" class="alert alert-secondary mt-4">🔒 Log in to add or delete destinations.</div>
+            <div id="addSection" class="d-none">
+            <h3 class="text-white mt-4">Add destination</h3>
+            <div class="row p-3 rounded">
+                <div class="col-12 col-md-6 mb-2">
+                    <input type="text" id="name" class="form-control" placeholder="City/Place, Country">
+                </div>
+                <div class="col-12 col-md-6 mb-2">
+                    <select id="category" class="form-control">
+                        <option>City break</option>
+                        <option>Mountain</option>
+                        <option>Beach</option>
+                        <option>Culture</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-6 mb-2">
+                    <input type="number" id="price" class="form-control" placeholder="Price per person ($)">
+                </div>
+                <div class="col-12 mb-2">
+                    <input type="text" id="photo" class="form-control" placeholder="Image file name (e.g. rome.jpg)">
+                </div>
+                <div class="col-12 mb-2">
+                    <textarea id="text" class="form-control" placeholder="Short description"></textarea>
+                </div>
+                <div id="message"></div>
+                <div class="col-12">
+                    <button type="button" class="btn btn-success" onclick="add()">Add</button>
+                </div>
+            </div>
+            </div>
+            <h3 class="text-white mt-4">Trip cost calculator</h3>
+            <div class="row p-3 rounded">
+                <div class="col-12 col-md-6 mb-2">
+                    <select id="calcDestination" class="form-control"></select>
+                </div>
+                <div class="col-6 col-md-6 mb-2">
+                    <input type="number" id="people" class="form-control" placeholder="People" min="1">
+                </div>
+                <div class="col-6 col-md-6 mb-2">
+                    <input type="number" id="extra" class="form-control" placeholder="Extras per person ($)" min="0">
+                </div>
+                <div class="col-12">
+                    <button type="button" class="btn btn-info" onclick="calculate()">Calculate</button>
+                </div>
+            </div>
+            <div id="calcResult" class="mt-3"></div>
+            <div class="text-right my-3">
+                <a href="#top" class="btn btn-secondary back-top">Back to the top</a>
+            </div>
+        </section>
+        <section id="gallery" class="container my-4 text-white">
+            <h2>Gallery</h2>
+            <div id="galleryContent">
+                <p>Click "Gallery" on a destination card to see its photos.</p>
+                <div class="text-right my-3">
+                    <a href="#top" class="btn btn-secondary back-top">Back to the top</a>
+                </div>
+            </div>
+        </section>
+        <section id="blog" class="container my-4 text-white">
+            <div class="jumbotron">
+                <h2>City guides</h2>
+                <p>Our favourite things to see and do</p>
+            </div>
+            <article id="article1" class="bg-light text-dark p-4 rounded mb-4">
+                <h3>10 things you must see in Paris</h3>
+                <img src="paris.webp" alt="Paris" class="img-fluid rounded mb-3">
+                <ol>
+                    <li>Eiffel Tower: The global symbol of Paris, built for the 1889 World's Fair, offering panoramic city views from its observation decks.</li>
+                    <li>Louvre Museum: The world's largest art museum housed in a former royal palace, home to the Mona Lisa, Venus de Milo, and thousands of classical and historical treasures.</li>
+                    <li>Notre-Dame Cathedral of Paris: A masterwork of French Gothic architecture featuring flying buttresses, intricate rose windows, and historic gargoyles.</li>
+                    <li>Basilique du Sacré-Cœur de Montmartre: A striking white-domed Romano-Byzantine basilica perched atop the highest point in the city with sweeping views.</li>
+                    <li>Musée d'Orsay: Located inside a grand Beaux-Arts railway station, it houses the world's finest collection of Impressionist and Post-Impressionist masterpieces by Monet, Van Gogh, and Degas.</li>
+                    <li>Arc de Triomphe: A massive neoclassical triumphal arch honoring those who fought for France, standing at the western end of the Champs-Élysées.</li>
+                    <li>Sainte-Chapelle: A royal medieval Gothic chapel renowned for its soaring 13th-century stained-glass windows depicting biblical scenes in vivid blues and reds.</li>
+                    <li>Tuileries Garden: Paris's oldest and most central public garden, stretching between the Louvre and Place de la Concorde with formal French landscaping and outdoor sculptures.</li>
+                    <li>Palais Garnier: A 19th-century opera house with a lavish Baroque interior, grand marble staircases, and a ceiling painted by Marc Chagall.</li>
+                    <li>Montmartre: The historic hilltop bohemian quarter known for its steep winding streets, local painters at Place du Tertre, and old-world village charm.</li>
+                </ol>
+                <h5>Useful information</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr><th>Topic</th><th>Info</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Best time to visit</td><td>April to May and September to October</td></tr>
+                            <tr><td>Currency</td><td>Euro (€)</td></tr>
+                            <tr><td>Language</td><td>French</td></tr>
+                            <tr><td>Getting around</td><td>Metro and walking</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <span class="badge badge-info">City break</span>
+                <span class="badge badge-pill badge-secondary">France</span>
+            </article>
+            <div class="text-right my-3">
+                <a href="#top" class="btn btn-secondary back-top">Back to the top</a>
+            </div>
+            <article id="article2" class="bg-light text-dark p-4 rounded mb-4">
+                <h3>10 things you must see in London</h3>
+                <img src="london-1.jpeg" alt="London" class="img-fluid rounded mb-3">
+                <ol>
+                    <li>The Tower of London: A historic castle on the River Thames that houses the dazzling Crown Jewels and features the famous Beefeater guards. You can book entry tickets via the <a href="https://www.hrp.org.uk/tower-of-london/">Historic Royal Palaces Website</a>.</li>
+                    <li>Big Ben: The iconic Elizabeth Tower and the historic Gothic-revival building where the UK Parliament meets, situated right along the River Thames.</li>
+                    <li>The British Museum: A world-famous museum showcasing vast global antiquities, including the Rosetta Stone and ancient Egyptian mummies. Entry to the main collection is free.</li>
+                    <li>Buckingham Palace: The official London residence of the British monarch, where you can watch the famous Changing of the Guard ceremony.</li>
+                    <li>Tower Bridge: A 125-year-old combined bascule and suspension bridge featuring high-level glass walkways with panoramic river views.</li>
+                    <li>St. Paul's Cathedral: An architectural masterpiece designed by Sir Christopher Wren, featuring a massive dome that dominates the city skyline.</li>
+                    <li>Borough Market: A vibrant historic food market near London Bridge known for artisanal street food, fresh produce, and gourmet treats.</li>
+                    <li>The London Eye: A giant observation wheel on the South Bank offering 360-degree views of the city skyline and the Thames River.</li>
+                    <li>Covent Garden: A lively district filled with street performers, boutique shopping, craft markets, and historic theatre venues.</li>
+                    <li>Sky Garden: London's highest public garden, perched at the top of 20 Fenchurch Street, offering free 360-degree views of the financial district (reservations required in advance via the <a href="https://skygarden.london/">Sky Garden Website</a>).</li>
+                </ol>
+                <h5>Useful information</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr><th>Topic</th><th>Info</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Best time to visit</td><td>May to September</td></tr>
+                            <tr><td>Currency</td><td>Pound Sterling (£)</td></tr>
+                            <tr><td>Language</td><td>English</td></tr>
+                            <tr><td>Getting around</td><td>Public transport, cycling and walking</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <span class="badge badge-info">City break</span>
+                <span class="badge badge-pill badge-secondary">UK</span>
+            </article>
+            <div class="text-right my-3">
+                <a href="#top" class="btn btn-secondary back-top">Back to the top</a>
+            </div>
+            <article id="article3" class="bg-light text-dark p-4 mb-4">
+                <h3>10 things you must see in Positano</h3>
+                <img src="positano1.avif" alt="Positano" class="img-fluid rounded mb-3">
+                <ol>
+                    <li>Church of Santa Maria Assunta: Located right in the heart of town, this church features a vibrant, majolica-tiled yellow and green dome and houses a 13th-century Byzantine icon of the Black Madonna. Entry is free.</li>
+                    <li>Roman Archeological Museum (Positano MAR): Situated 11 meters below the church, this subterranean museum lets you walk on glass platforms above a 2,000-year-old Roman villa preserved by the eruption of Vesuvius, featuring vivid Fourth Style frescoes.</li>
+                    <li>Spiaggia di Positano Marina Grande: The bustling main pebble beach right beneath the colorful cliffs. It is ideal for people-watching, swimming, or catching a boat, with both free public areas and private beach clubs like La Scogliera Positano.</li>
+                    <li>Fornillo Beach: A quieter, more relaxed alternative to the main beach. Reached via a scenic cliffside coastal walking path, it offers a more laid-back local atmosphere.</li>
+                    <li>Path of the Gods (Sentiero degli Dei): A dramatic high-altitude hiking trail running from Bomerano down toward Nocelle and Positano. It delivers sweeping panoramic views of the entire coastline and Capri.</li>
+                    <li>Via dei Mulini: Positano's main boutique-lined pedestrian street. It is packed with high-end designer clothing, handmade leather sandals, local art galleries, and ceramic shops.</li>
+                    <li>Franco's Bar: Perched next to the iconic Le Sirenuse hotel, this open-air terrace is the premier spot for sunset cocktails, craft drinks, and sweeping views over the illuminated vertical town.</li>
+                    <li>Arienzo Beach Club: Nestled in a private sunny cove known for getting the most daylight on the coast. You can reach it via a short boat shuttle from the main pier or by descending a long flight of stone steps.</li>
+                    <li>Music on the Rocks: A unique, vibrant nightclub carved directly out of a natural seaside cave right on the water.</li>
+                    <li>Li Galli: A tiny, myth-shrouded archipelago of small islands just offshore from Positano, best viewed or visited via a private boat tour along the coast.</li>
+                </ol>
+                <h5>Useful information</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr><th>Topic</th><th>Info</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Best time to visit</td><td>May to June and September to early October</td></tr>
+                            <tr><td>Currency</td><td>Euro (€)</td></tr>
+                            <tr><td>Language</td><td>Italian</td></tr>
+                            <tr><td>Getting around</td><td>By boat and walking</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <span class="badge badge-info">Beach</span>
+                <span class="badge badge-pill badge-secondary">Italy</span>
+            </article>
+            <div class="text-right my-3">
+                <a href="#top" class="btn btn-secondary back-top">Back to the top</a>
+            </div>
+            <article id="article4" class="bg-light text-dark p-4 mb-4">
+                <h3>10 things you must see in Santorini</h3>
+                <img src="santorini1.jpg" alt="Santorini" class="img-fluid rounded mb-3">
+                <ol>
+                    <li>Oia Village & Sunset Viewpoint: Walk the marble-paved alleys, see the famous blue-domed churches, and watch the sun dip into the Aegean Sea from the Oia Castle ruins.</li>
+                    <li>Akrotiri Archaeological Site: Explore the remarkably preserved Minoan Bronze Age settlement buried beneath volcanic ash around 1600 BC.</li>
+                    <li>Fira to Oia Caldera Hike: Trek the 10-kilometer cliffside trail connecting the capital of Fira to Oia, passing through Firostefani and Imerovigli with panoramic views.</li>
+                    <li>Imerovigli & Skaros Rock: Visit the highest point of the caldera rim known as the "Balcony of Santorini," and hike out to the historic Skaros Rock promontory.</li>
+                    <li>Nea Kameni Volcano & Hot Springs: Take a short boat trip to the active volcanic islet of Nea Kameni to walk the crater rim and soak in nearby sulfur-rich thermal waters.</li>
+                    <li>Ammoudi Bay: Descend the stone steps below Oia to this small fishing port for fresh seafood or to try cliff-jumping near the tiny Saint Nicholas chapel.</li>
+                    <li>Red Beach & Black Sand Beaches: View the dramatic red lava cliffs at Red Beach near Akrotiri, or relax on the organized black volcanic sand and pebbles of Kamari Beach and Perissa Beach.</li>
+                    <li>Pyrgos Kallistis: Wander through this quiet, traditional medieval hilltop village featuring castle ruins, whitewashed lanes, and fewer crowds.</li>
+                    <li>Local Wineries & Wine Tasting: Tour volcanic vineyards and taste distinct Assyrtiko wines at historic estates like Santo Wines or Domaine Sigalas.</li>
+                    <li>Santorini Catamaran Cruise: Sail around the caldera waters, swim in the open sea, and look up at the towering white villages from below.</li>
+                </ol>
+                <h5>Useful information</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr><th>Topic</th><th>Info</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Best time to visit</td><td>Mid-to-late September</td></tr>
+                            <tr><td>Currency</td><td>Euro (€)</td></tr>
+                            <tr><td>Language</td><td>Greek</td></tr>
+                            <tr><td>Getting around</td><td>Rental car, bus and walking</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <span class="badge badge-info">Beach</span>
+                <span class="badge badge-pill badge-secondary">Greece</span>
+            </article>
+            <div class="text-right my-3">
+                <a href="#top" class="btn btn-secondary back-top">Back to the top</a>
+            </div>
+            <article id="article6" class="bg-light text-dark p-4 mb-4">
+                <h3>10 things you must see in Bled</h3>
+                <img src="bled11.avif" alt="Bled" class="img-fluid rounded mb-3">
+                <ol>
+                    <li>Lake Bled:  The iconic emerald-green glacial lake surrounded by forests and the peaks of the Julian Alps.</li>
+                    <li>Bled Island (Blejski otok): A tiny island in the center of the lake that you can reach by a traditional wooden flat-bottom boat known as a Pletna.</li>
+                    <li>Pilgrimage Church of the Assumption of Mary: Located on Bled Island, featuring a 99-step staircase and a historic "wishing bell" you can ring inside.</li>
+                    <li>Bled Castle (Blejski grad): Slovenia's oldest castle, perched on a steep cliff high above the water, housing a museum, a chapel, and a printing press.</li>
+                    <li>Ojstrica Viewpoint: A short, steep 20-to-30-minute hike that delivers one of the most famous postcard panoramas of the lake, island, and castle.</li>
+                    <li>Mala Osojnica: A slightly more demanding 30-to-40-minute hike offering an even higher and broader perspective over the entire lake basin.</li>
+                    <li>Vintgar Gorge: A dramatic canyon just a few kilometers outside town where wooden walkways cling to vertical rock walls above the rushing Radovna River, leading to the Šum Waterfall.</li>
+                    <li>The Lakeside Promenade & 6 km Walking Loop: A flat, scenic path that takes about 1.5 to 2 hours to walk or bike all the way around the water.</li>
+                    <li>Straža Hill Summer Toboggan: A fun outdoor adventure spot above the lake where you can ride the alpine coaster or hike for alternate views.</li>
+                    <li>Lake Bohinj and Triglav National Park: A larger, quieter glacial lake and alpine wilderness located a short drive or day trip away in the heart of the Julian Alps.</li>
+                </ol>
+                <h5>Useful information</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr><th>Topic</th><th>Info</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Best time to visit</td><td>May to June and September to October</td></tr>
+                            <tr><td>Currency</td><td>Euro (€)</td></tr>
+                            <tr><td>Language</td><td>Slovenian</td></tr>
+                            <tr><td>Getting around</td><td>Walking</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <span class="badge badge-info">Mountain</span>
+                <span class="badge badge-pill badge-secondary">Slovenia</span>
+            </article>
+            <div class="text-right my-3">
+                <a href="#top" class="btn btn-secondary back-top">Back to the top</a>
+            </div>
+            <article id="article6" class="bg-light text-dark p-4 mb-4">
+                <h3>10 things you must see in Budapest</h3>
+                <img src="budapest1.jpg" alt="Budapest" class="img-fluid rounded mb-3">
+                <ol>
+                    <li>Fisherman's Bastion: Walk along the neo-Gothic and neo-Romanesque terraces on Castle Hill for fairytale turrets and sweeping, panoramic views across the Danube River to the Parliament Building.</li>
+                    <li>Hungarian Parlaiment Building: Marvel at the sprawling, neo-Gothic landmark on the Pest side of the river, which serves as the seat of the National Assembly and houses the Hungarian Crown Jewels.</li>
+                    <li>Széchenyi Thermal Baths: Soak in Europe's largest medicinal bath complex, featuring grand yellow neo-baroque outdoor and indoor pools heated by natural hot springs in City Park.</li>
+                    <li>St. Stephen's Basilica: Admire the towering neoclassical dome of the city's largest church and climb or take the elevator to the 360-degree observation deck for a full view of the capital.</li>
+                    <li>Széchenyi Chain Bridge: Stroll across Budapest’s most iconic 19th-century suspension bridge, which dramatically links the historic hills of Buda with the flat boulevards of Pest.</li>
+                    <li>Shoes on the Danube Bank: Reflect at this touching and solemn memorial made of iron shoes cast along the river edge, honoring the Jewish victims executed during World War II.</li>
+                    <li>Buda Castle ande Matthias Church: Ride the historic funicular up Castle Hill to explore the former royal palace complex and the striking, colorfully tiled 13th-century Matthias Church.</li>
+                    <li>Great Market Hall: Explore the bustling three-level 19th-century indoor market to sample local paprika, traditional sausages, fresh produce, and handmade Hungarian crafts.</li>
+                    <li>Ruin Bars (Szimpla Kert): Experience Budapest’s unique nightlife by stepping into Szimpla Kert, the pioneer of ruin pubs set inside eclectic, art-filled abandoned buildings in the Jewish Quarter.</li>
+                    <li>Gellért Hill: Hike up to the top of Gellért Hill for the best high-altitude sunset views of the bridges and the city skyline, alongside the Liberty Statue.</li>
+                </ol>
+                <h5>Useful information</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr><th>Topic</th><th>Info</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Best time to visit</td><td>May to June and September to October</td></tr>
+                            <tr><td>Currency</td><td>Hungarian Forint (Ft)</td></tr>
+                            <tr><td>Language</td><td>Hungarian</td></tr>
+                            <tr><td>Getting around</td><td>Metro, bus and walking</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <span class="badge badge-info">Culture</span>
+                <span class="badge badge-pill badge-secondary">Hungary</span>
+            </article>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#article1">Paris</a></li>
+                    <li class="page-item"><a class="page-link" href="#article2">London</a></li>
+                    <li class="page-item"><a class="page-link" href="#article3">Positano</a></li>
+                    <li class="page-item"><a class="page-link" href="#article4">Santorini</a></li>
+                    <li class="page-item"><a class="page-link" href="#article5">Bled</a></li>
+                    <li class="page-item"><a class="page-link" href="#article6">Budapest</a></li>
+                </ul>
+            </nav>
+            <div class="text-right my-3">
+                <a href="#top" class="btn btn-secondary back-top">Back to the top</a>
+            </div>
+        </section>
+        <section id="survey" class="container my-4 text-white">
+            <h2>Survey</h2>
+            <p>Tell us what you think about our site.</p>
+            <div id="surveyMessage"></div>
+            <div class="text-white p-4 rounded">
+                <div class="progress mb-3">
+                    <div id="surveyBar" class="progress-bar bg-success" style="width: 0%">0%</div>
+                </div>
+                <div class="form-group">
+                    <label for="sName">Name</label>
+                    <input type="text" id="sName" class="form-control" placeholder="Your name" oninput="updateProgress()">
+                </div>
+                <div class="form-group">
+                    <label for="sEmail">Email</label>
+                    <input type="email" id="sEmail" class="form-control" placeholder="you@example.com" oninput="updateProgress()">
+                </div>
+                <div class="form-group">
+                    <p class="mb-1">How did you find us?</p>
+                    <label class="mr-3"><input type="radio" name="source" value="Friends" onchange="updateProgress()">Friends</label>
+                    <label class="mr-3"><input type="radio" name="source" value="Social media" onchange="updateProgress()">Social media</label>
+                    <label class="mr-3"><input type="radio" name="source" value="Search engine" onchange="updateProgress()">Search engine</label>
+                </div>
+                <div class="form-group">
+                    <p class="mb-1">What did you like?</p>
+                    <label class="mr-3"><input type="checkbox" name="liked" value="Destinations" onchange="updateProgress()">Destinations</label>
+                    <label class="mr-3"><input type="checkbox" name="liked" value="Gallery" onchange="updateProgress()">Gallery</label>
+                    <label class="mr-3"><input type="checkbox" name="liked" value="Blog" onchange="updateProgress()">Blog</label>
+                    <label class="mr-3"><input type="checkbox" name="liked" value="Calculator" onchange="updateProgress()">Calculator</label>
+                </div>
+                <div class="form-group">
+                    <label for="sRating">Overall rating</label>
+                    <select id="sRating" class="form-control" onchange="updateProgress()">
+                        <option value="">Choose...</option>
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 - Excellent</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sComment">Additional comments (optional)</label>
+                    <textarea id="sComment" class="form-control" rows="3" placeholder="Anything else?"></textarea>
+                </div>
+                <button type="button" class="btn btn-success" onclick="submitSurvey()">Submit</button>
+            </div>
+            <div id="surveyResults" class="mt-4"></div>
+            <div class="text-right my-3">
+                <a href="#top" class="btn btn-secondary back-top">Back to the top</a>
+            </div>
+        </section>
+        <footer class="text-white py-3">
+            <h6>© 2026 Travel Planner App - Ivana Dimitrova</h6>
+            <address>
+                Contact us at: <a href="mailto:kti52024@feit.ukim.edu.mk">kti52024@feit.ukim.edu.mk</a>
+            </address>
+        </footer>
+        <script src="script.js"></script>
+    </body>
+</html>
